@@ -51,8 +51,6 @@ def model_name_to_cls(cls_name):
 
 class VisionConfig(PretrainedConfig):
     model_type = "vision"
-    cls: str = ""
-    params: AttrDict = {}
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -66,8 +64,6 @@ class VisionConfig(PretrainedConfig):
 
 class AlignerConfig(PretrainedConfig):
     model_type = "aligner"
-    cls: str = ""
-    params: AttrDict = {}
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -105,6 +101,10 @@ class MultiModalityPreTrainedModel(PreTrainedModel):
     base_model_prefix = "multi_modality"
     _no_split_modules = []
     _skip_keys_device_placement = "past_key_values"
+
+    @property
+    def all_tied_weights_keys(self):
+        return {}
 
 
 class MultiModalityCausalLM(MultiModalityPreTrainedModel):
